@@ -23,22 +23,22 @@ public class Meal {
 	}
 
 	public double getCalories() {
-		return getSumOf("calories", foods);
+		return getSumOf("calories");
 	}
 
 	public double getFat() {
-		return getSumOf("fat", foods);
+		return getSumOf("fat");
 	}
 
 	public double getCarbohydrates() {
-		return getSumOf("carbohydrates", foods);
+		return getSumOf("carbohydrates");
 	}
 
 	public double getProtein() {
-		return getSumOf("protein", foods);
+		return getSumOf("protein");
 	}
 	
-	private double getSumOf(String property, List<Food> foods) {
+	private double getSumOf(String property) {
 		double sum = 0.0;
 		Class<?> cls = foods.get(0).getClass();
 		
