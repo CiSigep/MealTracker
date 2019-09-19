@@ -52,7 +52,7 @@ public class Meal {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException("Error in trying to read: " + property);
+			throw new RuntimeException("Exception in trying to read: " + property);
 		}
 		
 		return sum;
