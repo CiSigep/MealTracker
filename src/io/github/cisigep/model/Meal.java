@@ -23,39 +23,19 @@ public class Meal {
 	}
 
 	public double getCalories() {
-		return getSumOf("calories");
+		return foods.stream().mapToDouble(food -> food.getCalories()).sum();
 	}
 
 	public double getFat() {
-		return getSumOf("fat");
+		return foods.stream().mapToDouble(food -> food.getFat()).sum();
 	}
 
 	public double getCarbohydrates() {
-		return getSumOf("carbohydrates");
+		return foods.stream().mapToDouble(food -> food.getCarbohydrates()).sum();
 	}
 
 	public double getProtein() {
-		return getSumOf("protein");
-	}
-	
-	private double getSumOf(String property) {
-		double sum = 0.0;
-		Class<?> cls = foods.get(0).getClass();
-		
-		String methodName = "get" + property.substring(0,1).toUpperCase() + property.substring(1);
-		
-		try {
-			Method mtd = cls.getDeclaredMethod(methodName);
-			
-			for(Food food : foods)
-				sum += (Double) mtd.invoke(food);
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException("Exception in trying to read " + property + ": " + e.getMessage());
-		}
-		
-		return sum;
+		return foods.stream().mapToDouble(food -> food.getProtein()).sum();
 	}
 	
 	public LocalDateTime getMealTime() {

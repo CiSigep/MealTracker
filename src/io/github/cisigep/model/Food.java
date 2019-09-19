@@ -53,7 +53,7 @@ public class Food {
 	
 	@Override
 	public String toString() {
-		return String.format("--\nName: %s, Calories: %.2f\nFat: %.2f\nCarbohydrates: %.2f\nProtein: %.2f\nCategories: %s",
+		return String.format("--\nName: %s\nCalories: %.2f\nFat: %.2f\nCarbohydrates: %.2f\nProtein: %.2f\nCategories: %s",
 				name, calories, fat, carbohydrates, protein, categories.toString());
 	}
 	
