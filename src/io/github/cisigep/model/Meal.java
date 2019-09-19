@@ -1,9 +1,12 @@
 package io.github.cisigep.model;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 public class Meal {
 	String name;
@@ -21,39 +24,51 @@ public class Meal {
 	}
 
 	public double getCalories() {
-		double calories = 0.0;
-
-		for (Food food : foods)
-			calories += food.getCalories();
-
-		return calories;
+		return getSumOf("calories", foods);
 	}
 
 	public double getFat() {
-		double fat = 0.0;
-
-		for (Food food : foods)
-			fat += food.getFat();
-
-		return fat;
+		return getSumOf("fat", foods);
 	}
 
 	public double getCarbohydrates() {
-		double carbohydrates = 0.0;
-
-		for (Food food : foods)
-			carbohydrates += food.getCarbohydrates();
-
-		return carbohydrates;
+		return getSumOf("carbohydrates", foods);
 	}
 
 	public double getProtein() {
-		double protein = 0.0;
-
-		for (Food food : foods)
-			protein += food.getProtein();
-
-		return protein;
+		return getSumOf("protein", foods);
+	}
+	
+	private double getSumOf(String property, List<Food> foods) {
+		double sum = 0.0;
+		Class<?> cls = foods.get(0).getClass();
+		
+		String methodName = "get" + property.substring(0,1).toUpperCase() + property.substring(1);
+		
+		try {
+			Method mtd = cls.getDeclaredMethod(methodName);
+			
+			for(Food food : foods)
+				sum += (Double) mtd.invoke(food);
+			
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return sum;
 	}
 	
 	public LocalDateTime getMealTime() {
